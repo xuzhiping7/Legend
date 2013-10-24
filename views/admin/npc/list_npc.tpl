@@ -15,7 +15,7 @@
                    <td>{{.Type}}</td>
                    <td>{{.DescSimple}}</td>
                    <td>{{.DescDetail}}</td>
-                   <td><a href="/admin/npc/edit/{{.Id}}">修改</a>   <a href="/admin/npc/delete/{{.Id}}">删除</a></td>
+                   <td><a href="/admin/npc/edit/{{.Id}}">修改</a>   <a href="/admin/npc/delete/{{.Id}}">删除</a> <a href="/admin/npc/detail/{{.Id}}">详细</a></td>
                  </tr>
                  {{end}}                 
 </table>

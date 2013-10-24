@@ -31,11 +31,17 @@ func main() {
 
 	beego.Router("/admin/player", &adminControllers.PlayerController{})
 
-	beego.Router("/admin/npc", &adminControllers.NPCShowController{})
-	beego.Router("/admin/npc/list", &adminControllers.NPCShowController{})
-	beego.Router("/admin/npc/new", &adminControllers.NPCNewController{})
-	beego.Router("/admin/npc/edit/:id:int", &adminControllers.NPCEditController{})
-	beego.Router("/admin/npc/delete/:id:int", &adminControllers.NPCDeleteController{})
+	beego.Router("/admin/npc", &adminControllers.NPCController{})
+	beego.Router("/admin/npc/:action(add)", &adminControllers.NPCController{})
+	beego.Router("/admin/npc/:action(detail|edit|delete|add_conversation|delete_conversation)/:id:int", &adminControllers.NPCController{})
+
+	beego.Router("/admin/monster", &adminControllers.MonsterController{})
+	beego.Router("/admin/monster/:action(add)", &adminControllers.MonsterController{})
+	beego.Router("/admin/monster/:action(edit|delete)/:id:int", &adminControllers.MonsterController{})
+
+	beego.Router("/admin/prop", &adminControllers.PropController{})
+	beego.Router("/admin/prop/:action(add)", &adminControllers.PropController{})
+	beego.Router("/admin/prop/:action(edit|delete)/:id:int", &adminControllers.PropController{})
 
 	beego.Router("/admin/map", &adminControllers.MapController{})
 	beego.Router("/admin/map/:action(add)", &adminControllers.MapController{})

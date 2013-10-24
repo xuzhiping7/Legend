@@ -35,6 +35,10 @@ func init() {
 		textTemplate[lang[i].Number] = lang[i].Template
 	}
 
+	//初始化所有地图信息
+	map_MapData = models.GetAllMap()
+	beego.Trace(map_MapData[3])
+
 	//beego.Trace(textTemplate)
 
 	//从csv读取数据（已完成，请勿打开，会重复插入很多数据的。）

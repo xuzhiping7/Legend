@@ -191,6 +191,7 @@ func (player *Player) UpdateNickName(name string) bool {
 	return true
 }
 
+//更新玩家Flag
 func (player *Player) UpdateFlag(flag int) bool {
 
 	player.Flag = flag

@@ -66,7 +66,7 @@ function show_menuC(){
 <div class="header">
 	<div class="header03"></div>
 	<div class="header01"></div>
-	<div class="header02">传说OL管理系统</div>
+	<div class="header02"><a href="/admin">传说OL管理系统</a></div>
 </div>
 <div class="left" id="LeftBox">
 	<div class="left01">
@@ -92,8 +92,8 @@ function show_menuC(){
 		  <div class="left02down01"><a onclick="show_menuB(81)" href="javascript:;"><div id="Bf081" class="left02down01_img"></div>NPC管理</a></div>
 			<div class="left02down01_xia noneBox" id="Bli081">
 				<ul>
-					<li  id="f012"><a href="/admin/npc/list">&middot;NPC列表</a></li>
-					<li  id="f013"><a href="/admin/npc/new">&middot;新增NPC</a></li>
+					<li  id="f012"><a href="/admin/npc">&middot;NPC列表</a></li>
+					<li  id="f013"><a href="/admin/npc/add">&middot;新增NPC</a></li>
 				</ul>
 			</div>
 			
@@ -118,8 +118,8 @@ function show_menuC(){
 			<div class="left02down01"><a onclick="show_menuB(84)" href="javascript:;"><div id="Bf084" class="left02down01_img"></div>怪物管理</a></div>
 			<div class="left02down01_xia noneBox" id="Bli084">
 				<ul>
-					<li  id="f012"><a href="/admin/npc/list">&middot;怪物列表</a></li>
-					<li  id="f013"><a href="/admin/npc/new">&middot;新增怪物</a></li>
+					<li  id="f012"><a href="/admin/monster">&middot;怪物列表</a></li>
+					<li  id="f013"><a href="/admin/monster/add">&middot;新增怪物</a></li>
 				</ul>
 			</div>
 			
@@ -127,8 +127,8 @@ function show_menuC(){
 			<div class="left02down01"><a onclick="show_menuB(85)" href="javascript:;"><div id="Bf085" class="left02down01_img"></div>道具管理</a></div>
 			<div class="left02down01_xia noneBox" id="Bli085">
 				<ul>
-					<li  id="f012"><a href="/admin/npc/list">&middot;道具列表</a></li>
-					<li  id="f013"><a href="/admin/npc/new">&middot;新增道具</a></li>
+					<li  id="f012"><a href="/admin/prop">&middot;道具列表</a></li>
+					<li  id="f013"><a href="/admin/prop/add">&middot;新增道具</a></li>
 				</ul>
 			</div>
 			

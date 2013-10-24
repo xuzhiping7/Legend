@@ -1,4 +1,4 @@
- <form action="/admin/npc/new" method="post">
+ <form action="/admin/npc/add" method="post">
     Name: <input name="name" type="text" value="test"></br>
     Type：<input name="type" type="text" value="0"></br>
     DescSimple: <input name="desc_simple" type="textarea" value=""></br>

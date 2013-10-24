@@ -6,132 +6,181 @@ import (
 	"strconv"
 )
 
-type NPCShowController struct {
+type NPCController struct {
 	beego.Controller
 }
 
-type NPCNewController struct {
-	beego.Controller
-}
+func (this *NPCController) Get() {
+	action := this.Ctx.Input.Params(":action")
 
-type NPCEditController struct {
-	beego.Controller
-}
+	switch action {
+	//列表
+	case "":
+		npcList := models.GetAllNPC()
 
-type NPCDeleteController struct {
-	beego.Controller
-}
+		this.Data["Nav"] = "NPC列表"
+		this.Data["NPCList"] = npcList
 
-func (this *NPCShowController) Get() {
+		this.Layout = "admin/admin.tpl"
+		this.TplNames = "admin/npc/list_npc.tpl"
+	//添加
+	case "add":
+		this.Data["Nav"] = "添加NPC模板"
 
-	npcList := models.GetAllNPC()
+		this.Layout = "admin/admin.tpl"
+		this.TplNames = "admin/npc/add_npc.tpl"
+	//编辑
+	case "edit":
+		id := this.Ctx.Input.Params(":id")
+		intid, err := strconv.Atoi(id)
 
-	this.Data["Nav"] = "NPC列表"
-	this.Data["NPCList"] = npcList
+		if err != nil {
+			beego.Error("npc.go Edit Get Err:", err)
+		}
 
-	this.Layout = "admin/admin.tpl"
-	this.TplNames = "admin/npc/show_npc.tpl"
-}
+		npc := models.GetNPC(intid)
 
-func (this *NPCNewController) Get() {
-	this.Layout = "admin/admin.tpl"
-	this.TplNames = "admin/npc/add_npc.tpl"
-}
+		this.Data["Nav"] = "NPC编辑"
+		this.Data["NPC"] = npc
 
-func (this *NPCNewController) Post() {
+		this.Layout = "admin/admin.tpl"
+		this.TplNames = "admin/npc/edit_npc.tpl"
 
-	postName := this.GetString("name")
-	postDescSimple := this.GetString("desc_simple")
-	postDescDetail := this.GetString("desc_detail")
-	temp := this.Input().Get("type")
-	postType, err := strconv.Atoi(temp)
+	case "detail":
+		id := this.Ctx.Input.Params(":id")
+		intid, err := strconv.Atoi(id)
 
-	if err != nil {
-		beego.Error("npc.go Post Err:", err)
+		if err != nil {
+			beego.Error("npc.go Edit Get Err:", err)
+		}
+
+		npc := models.GetNPC(intid)
+
+		this.Data["Nav"] = "NPC详细信息"
+		this.Data["NPC"] = npc
+
+		this.Layout = "admin/admin.tpl"
+		this.TplNames = "admin/npc/detail_npc.tpl"
+
+	//删除
+	case "delete":
+		id := this.Ctx.Input.Params(":id")
+		intid, err := strconv.Atoi(id)
+
+		if err != nil {
+			beego.Error("npc.go Delete Get Err:", err)
+		}
+
+		npc := models.NPC{Id: intid}
+		_, err2 := models.OrmHandle.Delete(&npc)
+
+		if err2 != nil {
+			beego.Error("npc.go Delete Get Err:", err2)
+		}
+		this.Ctx.Redirect(302, "/admin/npc")
+
+	case "delete_conversation":
+		id := this.Ctx.Input.Params(":id")
+		intid, err := strconv.Atoi(id)
+
+		if err != nil {
+			beego.Error("npc.go delete_conversation Get Err:", err)
+		}
+
+		temp := models.NPCConversation{Id: intid}
+		_, err2 := models.OrmHandle.Delete(&temp)
+
+		if err2 != nil {
+			beego.Error("npc.go delete_conversation Get Err:", err2)
+		}
+		this.Ctx.Redirect(302, "/admin/npc")
 	}
-
-	npc := models.NPC{}
-	npc.Name = postName
-	npc.Type = postType
-	npc.DescSimple = postDescSimple
-	npc.DescDetail = postDescDetail
-
-	_, err2 := models.OrmHandle.Insert(&npc)
-
-	if err2 != nil {
-		beego.Error("npc.go Post Err2:", err2)
-	}
-
-	this.Layout = "admin/admin.tpl"
-	this.TplNames = "admin/npc/add_npc.tpl"
 }
 
-func (this *NPCEditController) Get() {
+func (this *NPCController) Post() {
 
-	id := this.Ctx.Input.Params(":id")
-	intid, err := strconv.Atoi(id)
+	action := this.Ctx.Input.Params(":action")
 
-	if err != nil {
-		beego.Error("npc.go Edit Get Err:", err)
+	switch action {
+	//添加
+	case "add":
+
+		postName := this.GetString("name")
+		postDescSimple := this.GetString("desc_simple")
+		postDescDetail := this.GetString("desc_detail")
+		temp := this.Input().Get("type")
+		postType, err := strconv.Atoi(temp)
+
+		if err != nil {
+			beego.Error("npc.go Post Err:", err)
+		}
+
+		npc := models.NPC{}
+		npc.Name = postName
+		npc.Type = postType
+		npc.DescSimple = postDescSimple
+		npc.DescDetail = postDescDetail
+
+		_, err2 := models.OrmHandle.Insert(&npc)
+
+		if err2 != nil {
+			beego.Error("npc.go Post Err2:", err2)
+		}
+
+		this.Ctx.Redirect(302, "/admin/npc")
+
+	//编辑
+	case "edit":
+		id := this.Ctx.Input.Params(":id")
+		intid, err := strconv.Atoi(id)
+
+		npc := models.GetNPC(intid)
+
+		postName := this.GetString("name")
+		postDescSimple := this.GetString("desc_simple")
+		postDescDetail := this.GetString("desc_detail")
+		temp := this.Input().Get("type")
+		postType, err := strconv.Atoi(temp)
+
+		if err != nil {
+			beego.Error("npc.go Edit Err:", err)
+		}
+
+		npc.Name = postName
+		npc.Type = postType
+		npc.DescSimple = postDescSimple
+		npc.DescDetail = postDescDetail
+
+		_, err2 := models.OrmHandle.Update(npc)
+
+		if err2 != nil {
+			beego.Error("npc.go Edit Err2:", err2)
+		}
+
+		this.Data["Nav"] = "NPC编辑"
+		this.Data["NPC"] = npc
+
+		this.Ctx.Redirect(302, "/admin/npc")
+
+	case "add_conversation":
+
+		id, err := strconv.Atoi(this.Ctx.Input.Params(":id"))
+		if err != nil {
+			beego.Error("npc.go post action add_conversation Err:", err)
+		}
+
+		conversation := this.GetString("conversation")
+
+		temp := models.NPCConversation{}
+		temp.NPCId = id
+		temp.Conversation = conversation
+
+		_, err2 := models.OrmHandle.Insert(&temp)
+
+		if err2 != nil {
+			beego.Error("npc.go post action add_conversation Err2:", err2)
+		}
+
+		this.Ctx.Redirect(302, "/admin/npc/detail/"+strconv.Itoa(id))
 	}
-
-	npc := models.GetNPC(intid)
-
-	this.Data["Nav"] = "NPC编辑"
-	this.Data["NPC"] = npc
-
-	this.Layout = "admin/admin.tpl"
-	this.TplNames = "admin/npc/edit_npc.tpl"
-}
-
-func (this *NPCEditController) Post() {
-	id := this.Ctx.Input.Params(":id")
-	intid, err := strconv.Atoi(id)
-
-	npc := models.GetNPC(intid)
-
-	postName := this.GetString("name")
-	postDescSimple := this.GetString("desc_simple")
-	postDescDetail := this.GetString("desc_detail")
-	temp := this.Input().Get("type")
-	postType, err := strconv.Atoi(temp)
-
-	if err != nil {
-		beego.Error("npc.go Edit Err:", err)
-	}
-
-	npc.Name = postName
-	npc.Type = postType
-	npc.DescSimple = postDescSimple
-	npc.DescDetail = postDescDetail
-
-	_, err2 := models.OrmHandle.Update(npc)
-
-	if err2 != nil {
-		beego.Error("npc.go Edit Err2:", err2)
-	}
-
-	this.Data["Nav"] = "NPC编辑"
-	this.Data["NPC"] = npc
-
-	this.Layout = "admin/admin.tpl"
-	this.TplNames = "admin/npc/edit_npc.tpl"
-}
-
-func (this *NPCDeleteController) Get() {
-
-	id := this.Ctx.Input.Params(":id")
-	intid, err := strconv.Atoi(id)
-
-	if err != nil {
-		beego.Error("npc.go Delete Get Err:", err)
-	}
-
-	npc := models.NPC{Id: intid}
-	_, err2 := models.OrmHandle.Delete(&npc)
-
-	if err2 != nil {
-		beego.Error("npc.go Delete Get Err:", err)
-	}
-	this.Ctx.Redirect(302, "/admin/npc/list")
 }

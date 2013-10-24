@@ -66,10 +66,12 @@ func GetNPC(id int) (npc *NPC) {
 	temp.Id = id
 
 	err := OrmHandle.Read(&temp)
-
 	if err != nil {
 		beego.Error("npc.go GetAllNPC error:", err)
 	}
+
+	temp.Conversations = GetNPCConversations(id)
+
 	return &temp
 }
 

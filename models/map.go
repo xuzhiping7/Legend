@@ -40,3 +40,18 @@ func GetAllWechatMap() (allMap *[]WechatMap) {
 	}
 	return &maps
 }
+
+//获取所有地图信息，以map[int]*models.WechatMap结构返回
+func GetAllMap() (allMap map[int]*WechatMap) {
+
+	//这个指针取值方式可能会有效率上的一点点缺失，但没到好的解决方法，除非再写个函数。
+	maps := *GetAllWechatMap()
+
+	allMap = make(map[int]*WechatMap)
+
+	for i := 0; i < len(maps); i++ {
+		allMap[maps[i].Number] = &maps[i]
+	}
+
+	return allMap
+}

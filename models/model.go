@@ -14,7 +14,8 @@ func init() {
 	//数据库对象初始化
 	orm.RegisterDriver("mysql", orm.DR_MySQL)
 	orm.RegisterDataBase("default", "mysql", "root:@/studygolang?charset=utf8", 30)
-	orm.RegisterModel(new(Player), new(PlayerProp), new(LanguageTemplate), new(NPC), new(WechatMap))
+	orm.RegisterModel(new(Player), new(PlayerProp), new(LanguageTemplate), new(NPC),
+		new(WechatMap), new(Monster), new(Prop), new(NPCConversation))
 
 	OrmHandle = orm.NewOrm()
 

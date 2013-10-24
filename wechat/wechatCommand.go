@@ -3,6 +3,7 @@ package wechat
 import (
 	"Legend/models"
 	"fmt"
+	//"github.com/astaxie/beego"
 	"strings"
 )
 

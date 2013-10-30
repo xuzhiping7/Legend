@@ -20,7 +20,7 @@ func (this *WechatMap) TableName() string {
 	return "wechat_map"
 }
 
-//根据ID获取一个NPC
+//根据ID获取一张地图信息
 func GetOneMap(id int) (oneMap *WechatMap) {
 	temp := WechatMap{}
 	temp.Id = id

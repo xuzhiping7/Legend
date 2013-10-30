@@ -205,6 +205,20 @@ func (player *Player) UpdateFlag(flag int) bool {
 	return true
 }
 
+//更新玩家位置
+func (player *Player) UpdateLocation(i int) bool {
+
+	player.Location = i
+	_, err := OrmHandle.Update(player, "Location")
+
+	if err != nil {
+		beego.Error("player.go UpdateLocation():", err)
+		return false
+	}
+
+	return true
+}
+
 //后台管理用到的
 func GetAllPlayer() (playerList *[]Player) {
 	players := []Player{}

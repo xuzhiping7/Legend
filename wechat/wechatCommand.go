@@ -60,6 +60,44 @@ func playerCommandController(player *models.Player, content string) (s_ReturnCon
 	//前往
 	case strings.HasPrefix(content, commandPrefix[2]):
 
+		str_AimMap := strings.Replace(content, commandPrefix[2], "", -1)
+
+		//匹配玩家所在地
+		mapId, b := GetMapNumberByMapName(str_AimMap)
+		if b {
+			if player.CommentPrefixStr != "" {
+				player.CommentPrefixStr = ""
+			}
+
+			if map_MapData[mapId].Level <= player.Level {
+				if player.UpdateLocation(mapId) {
+					s_ReturnContent = fmt.Sprintf(textTemplate[800009], map_MapData[mapId].Name, map_MapData[mapId].MapDescript)
+					player.RecordEvent.AddRecord(fmt.Sprintf(textTemplate[200001], map_MapData[mapId].Name))
+
+				} else {
+					s_ReturnContent = textTemplate[100]
+				}
+				//记录玩家前往事件
+				player.RecordEvent.AddRecord(fmt.Sprintf(textTemplate[200001], map_MapData[mapId].Name))
+			} else {
+				s_ReturnContent = fmt.Sprintf(textTemplate[100028], map_MapData[mapId].Level)
+			}
+		} else {
+			//如果没有匹配到地点，则输出当前玩家可以前往的地点，并且进入命令补全模式
+			if player.CommentPrefixStr != "" {
+				s_ReturnContent = textTemplate[7]
+				player.CommentPrefixStr = ""
+			} else {
+				s_ReturnContent += textTemplate[10]
+				for _, v := range map_MapData {
+					if v.Level <= player.Level {
+						s_ReturnContent += v.Name + "\n"
+					}
+				}
+				player.CommentPrefixStr = commandPrefix[2]
+			}
+		}
+
 	//修炼
 	case strings.HasPrefix(content, commandPrefix[3]):
 
@@ -142,4 +180,17 @@ func ShowMapInfo(player *models.Player) (s string) {
 	}
 
 	return s
+}
+
+//根据地图名字来获取地图信息
+func GetMapNumberByMapName(name string) (index int, b bool) {
+	b = false
+	for _, v := range map_MapData {
+		if name == v.Name {
+			index = v.Number
+			b = true
+			break
+		}
+	}
+	return index, b
 }

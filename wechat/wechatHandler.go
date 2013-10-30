@@ -37,7 +37,6 @@ func init() {
 
 	//初始化所有地图信息
 	map_MapData = models.GetAllMap()
-	beego.Trace(map_MapData[3])
 
 	//beego.Trace(textTemplate)
 
@@ -104,7 +103,7 @@ func WechatResponseHandle(openid string, content string) (s_ReturnContent string
 		return s_ReturnContent
 	}
 
-	beego.Debug(s_ReturnContent)
+	beego.Debug("wechatHandle.go : " + s_ReturnContent)
 
 	return ""
 }

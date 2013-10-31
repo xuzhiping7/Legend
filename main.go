@@ -45,7 +45,7 @@ func main() {
 
 	beego.Router("/admin/map", &adminControllers.MapController{})
 	beego.Router("/admin/map/:action(add)", &adminControllers.MapController{})
-	beego.Router("/admin/map/:action(edit|delete)/:id:int", &adminControllers.MapController{})
+	beego.Router("/admin/map/:action(detail|edit|delete|add_npc|delete_npc)/:id:int", &adminControllers.MapController{})
 
 	beego.Router("/admin/textTemplate", &adminControllers.TextTemplateController{})
 	beego.Router("/admin/textTemplate/:action(add)", &adminControllers.TextTemplateController{})

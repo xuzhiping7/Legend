@@ -1,5 +1,6 @@
  <form action="/admin/npc/edit/{{.NPC.Id}}" method="post">
- 		ID:{{.NPC.Id}}</br>
+ 	ID:{{.NPC.Id}}</br>
+	Number: <input name="number" type="text" value="{{.NPC.Number}}"></br>
     Name: <input name="name" type="text" value="{{.NPC.Name}}"></br>
     Type：<input name="type" type="text" value="{{.NPC.Type}}"></br>
     DescSimple: <input name="desc_simple" type="textarea" value="{{.NPC.DescSimple}}"></br>

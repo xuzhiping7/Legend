@@ -1,5 +1,7 @@
 
- 	NPC ID:{{.NPC.Id}}</br>
+ 	NPC ID:{{.NPC.Id}}</br></br>
+	
+	NPC编号:{{.NPC.Number}}</br>
     名字: {{.NPC.Name}}</br>
     类型：{{.NPC.Type}}</br>
     简单描述: {{.NPC.DescSimple}}</br>

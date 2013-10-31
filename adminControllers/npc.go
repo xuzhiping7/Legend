@@ -136,6 +136,11 @@ func (this *NPCController) Post() {
 
 		npc := models.GetNPC(intid)
 
+		number, err3 := strconv.Atoi(this.Input().Get("number"))
+		if err3 != nil {
+			beego.Error("npc.go Edit Err3:", err3)
+		}
+
 		postName := this.GetString("name")
 		postDescSimple := this.GetString("desc_simple")
 		postDescDetail := this.GetString("desc_detail")
@@ -146,6 +151,7 @@ func (this *NPCController) Post() {
 			beego.Error("npc.go Edit Err:", err)
 		}
 
+		npc.Number = number
 		npc.Name = postName
 		npc.Type = postType
 		npc.DescSimple = postDescSimple

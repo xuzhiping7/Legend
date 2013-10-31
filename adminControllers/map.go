@@ -43,6 +43,22 @@ func (this *MapController) Get() {
 		this.Data["Map"] = temp
 		this.Layout = "admin/admin.tpl"
 		this.TplNames = "admin/map/edit_map.tpl"
+	//详细
+	case "detail":
+		id := this.Ctx.Input.Params(":id")
+		intid, err := strconv.Atoi(id)
+
+		if err != nil {
+			beego.Error("map.go Edit Get Err:", err)
+		}
+
+		temp := models.GetOneMap(intid)
+
+		this.Data["Nav"] = "地图详细信息"
+		this.Data["Map"] = temp
+
+		this.Layout = "admin/admin.tpl"
+		this.TplNames = "admin/map/detail_map.tpl"
 	//删除地图
 	case "delete":
 		id := this.Ctx.Input.Params(":id")
@@ -57,7 +73,26 @@ func (this *MapController) Get() {
 			beego.Error("map.go delete Get Err:", err)
 		}
 		this.Ctx.Redirect(302, "/admin/map")
+
+		//删除NPC
+	case "delete_npc":
+		id := this.Ctx.Input.Params(":id")
+		intid, err := strconv.Atoi(id)
+
+		if err != nil {
+			beego.Error("npc.go delete_npc Get Err:", err)
+		}
+
+		temp := models.MapNPC{Id: intid}
+		_, err2 := models.OrmHandle.Delete(&temp)
+
+		if err2 != nil {
+			beego.Error("npc.go delete_npc Get Err:", err2)
+		}
+		this.Ctx.Redirect(302, "/admin/map")
+
 	}
+
 }
 
 func (this *MapController) Post() {
@@ -134,5 +169,34 @@ func (this *MapController) Post() {
 		}
 
 		this.Ctx.Redirect(302, "/admin/map")
+	//为地图增加NPC
+	case "add_npc":
+		id, err := strconv.Atoi(this.Ctx.Input.Params(":id"))
+		npcNumber, err2 := strconv.Atoi(this.Input().Get("npc_number"))
+		mapNumber, err4 := strconv.Atoi(this.Input().Get("map_number"))
+
+		if err != nil {
+			beego.Error("map.go add_npc action add_npc Err:", err)
+		}
+		if err2 != nil {
+			beego.Error("map.go add_npc action add_npc Err2:", err2)
+		}
+
+		if err4 != nil {
+			beego.Error("map.go add_npc action add_npc Err4:", err4)
+		}
+
+		temp := models.MapNPC{}
+		temp.MapNumber = mapNumber
+		temp.NPCNumber = npcNumber
+
+		_, err3 := models.OrmHandle.Insert(&temp)
+
+		if err3 != nil {
+			beego.Error("npc.go add_npc action add_conversation Err3:", err3)
+		}
+
+		this.Ctx.Redirect(302, "/admin/map/detail/"+strconv.Itoa(id))
+
 	}
 }

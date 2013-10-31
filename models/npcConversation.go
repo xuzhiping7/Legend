@@ -22,7 +22,7 @@ func GetNPCConversations(id int) (list *[]NPCConversation) {
 	_, err := OrmHandle.QueryTable("wechat_npc_conversation").Filter("npc_id", id).All(&conversations)
 
 	if err != nil {
-		beego.Error("npc.go GetAllNPC error:", err)
+		beego.Error("npc.go GetNPCConversations error:", err)
 	}
 	return &conversations
 }

@@ -5,14 +5,14 @@ import (
 )
 
 type WechatMap struct {
-	Id          int    `orm:"column(id);pk"`
-	Number      int    `orm:"column(number)"`
-	Name        string `orm:"column(name)"`
-	MapDescript string `orm:"column(descript)"`
-	Level       int    `orm:"column(level)"`
-	NPCs        []int  `orm:"-"`
-	Mosters     []int  `orm:"-"`
-	MostersRate []int  `orm:"-"`
+	Id          int       `orm:"column(id);pk"`
+	Number      int       `orm:"column(number)"`
+	Name        string    `orm:"column(name)"`
+	MapDescript string    `orm:"column(descript)"`
+	Level       int       `orm:"column(level)"`
+	NPCs        *[]MapNPC `orm:"-"`
+	Mosters     []int     `orm:"-"`
+	MostersRate []int     `orm:"-"`
 }
 
 //为orm接口的表名
@@ -28,6 +28,9 @@ func GetOneMap(id int) (oneMap *WechatMap) {
 	if err != nil {
 		beego.Error("map.go GetOneMap error:", err)
 	}
+
+	temp.NPCs = GetMapNPC(temp.Number)
+
 	return &temp
 }
 

@@ -15,7 +15,7 @@ func init() {
 	orm.RegisterDriver("mysql", orm.DR_MySQL)
 	orm.RegisterDataBase("default", "mysql", "root:@/studygolang?charset=utf8", 30)
 	orm.RegisterModel(new(Player), new(PlayerProp), new(LanguageTemplate), new(NPC),
-		new(WechatMap), new(Monster), new(Prop), new(NPCConversation))
+		new(WechatMap), new(Monster), new(Prop), new(NPCConversation), new(MapNPC))
 
 	OrmHandle = orm.NewOrm()
 

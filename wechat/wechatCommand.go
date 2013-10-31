@@ -56,6 +56,7 @@ func playerCommandController(player *models.Player, content string) (s_ReturnCon
 
 	//当前
 	case strings.HasPrefix(content, commandPrefix[1]):
+		s_ReturnContent = ShowMapInfo(player.Location)
 
 	//前往
 	case strings.HasPrefix(content, commandPrefix[2]):
@@ -100,7 +101,24 @@ func playerCommandController(player *models.Player, content string) (s_ReturnCon
 
 	//修炼
 	case strings.HasPrefix(content, commandPrefix[3]):
+		////查看玩家当前地点是否适合修炼
+		//b_CanMapPractice := CanMapPractice(player.Location, model.Func_修炼)
+		//if !b_CanMapPractice {
+		//	s_ReturnContent = textTemplate["800008"]
+		//	break
+		//}
 
+		////查看是否有足够的行动力来执行改动作
+		//temp_Str, b := PlayerCheckMobility(player, -5)
+		//if b {
+		//	//记录玩家修炼事件
+		//	player.RecordEvent.AddRecord(fmt.Sprintf(textTemplate["200002"], Map_MapData[player.Location].Name))
+
+		//	PlayerCheckStatus(player)
+		//	s_ReturnContent = PlayerPratctice(player) + "\n\n" + temp_Str
+		//} else {
+		//	s_ReturnContent = temp_Str
+		//}
 	//帮助
 	case strings.HasPrefix(content, commandPrefix[6]):
 		s_ReturnContent = textTemplate[11]
@@ -168,20 +186,6 @@ func playerCommandController(player *models.Player, content string) (s_ReturnCon
 	return s_ReturnContent, isOnCommand
 }
 
-//显示玩家所处当前地图的信息
-func ShowMapInfo(player *models.Player) (s string) {
-
-	s = fmt.Sprintf(textTemplate[200008], map_MapData[player.Location].Name, map_MapData[player.Location].MapDescript)
-
-	if len(map_MapData[player.Location].NPCs) > 0 {
-		for _, v := range map_MapData[player.Location].NPCs {
-			s += "\n[1]" + map_NPCs[v].GetName() + ":" + map_NPCs[v].GetDescSimple()
-		}
-	}
-
-	return s
-}
-
 //根据地图名字来获取地图信息
 func GetMapNumberByMapName(name string) (index int, b bool) {
 	b = false
@@ -193,4 +197,16 @@ func GetMapNumberByMapName(name string) (index int, b bool) {
 		}
 	}
 	return index, b
+}
+
+//显示玩家所处当前地图的信息
+func ShowMapInfo(number int) (s string) {
+	s = fmt.Sprintf(textTemplate[200008], map_MapData[number].Name, map_MapData[number].MapDescript)
+
+	//if len(map_MapData[number].NPCs) > 0 {
+	//	for _, v := range map_MapData[number].NPCs {
+	//		s += "\n[1]" + map_NPCs[v].GetName() + ":" + map_NPCs[v].GetDescSimple()
+	//	}
+	//}
+	return s
 }

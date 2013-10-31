@@ -1,6 +1,7 @@
 <table width="900" border="1" cellspacing="0">
                  <tr>
-                 	 <td>NPC ID</td>                
+                 	 <td>NPC ID</td> 
+					 <td>NPC 编号</td>               
                    <td>NPC名称</td>
                    <td>类型</td>
                    <td>简单描述</td>
@@ -10,7 +11,8 @@
                  
                  {{range .NPCList}}
                  <tr>
-                   <td>{{.Id}}</td>           
+                   <td>{{.Id}}</td>    
+				    <td>{{.Number}}</td>        
                    <td>{{.Name}}</td>
                    <td>{{.Type}}</td>
                    <td>{{.DescSimple}}</td>

@@ -14,7 +14,7 @@
                    <td>{{.Name}}</td>
                    <td>{{.Level}}</td>
                    <td>{{.MapDescript}}</td>
-                   <td><a href="/admin/map/edit/{{.Id}}">修改</a>   <a href="/admin/map/delete/{{.Id}}">删除</a></td>
+                   <td><a href="/admin/map/edit/{{.Id}}">修改</a>   <a href="/admin/map/delete/{{.Id}}">删除</a> <a href="/admin/map/detail/{{.Id}}">详细</a></td>
                  </tr>
                  {{end}}                 
 </table>

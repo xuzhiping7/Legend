@@ -25,6 +25,7 @@ type WechatNPC interface {
 
 type NPC struct {
 	Id         int    `orm:"column(id);pk"`
+	Number     int    `orm:"column(number)"`
 	Name       string `orm:"column(name)"`
 	Type       int    `orm:"column(type)"`
 	DescSimple string `orm:"column(desc_simple)"`

@@ -202,11 +202,13 @@ func GetMapNumberByMapName(name string) (index int, b bool) {
 //显示玩家所处当前地图的信息
 func ShowMapInfo(number int) (s string) {
 	s = fmt.Sprintf(textTemplate[200008], map_MapData[number].Name, map_MapData[number].MapDescript)
+	//beego.Trace("ShowMapInfo")
 
-	//if len(map_MapData[number].NPCs) > 0 {
-	//	for _, v := range map_MapData[number].NPCs {
-	//		s += "\n[1]" + map_NPCs[v].GetName() + ":" + map_NPCs[v].GetDescSimple()
-	//	}
-	//}
+	if map_MapData[number].NPCs != nil {
+		for _, v := range *map_MapData[number].NPCs {
+			s += "\n[1]" + map_NPCs[v.NPCNumber].GetName() + ":" + map_NPCs[v.NPCNumber].GetDescSimple()
+		}
+	}
+
 	return s
 }

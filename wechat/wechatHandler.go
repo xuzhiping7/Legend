@@ -38,6 +38,8 @@ func init() {
 	//初始化所有地图信息
 	map_MapData = models.GetAllMap()
 
+	//初始化所有NPC信息
+	map_NPCs = models.GetAllNPCWithMap()
 	//beego.Trace(textTemplate)
 
 	//从csv读取数据（已完成，请勿打开，会重复插入很多数据的。）

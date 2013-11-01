@@ -41,6 +41,11 @@ func GetAllWechatMap() (allMap *[]WechatMap) {
 	if err != nil {
 		beego.Error("map.go GetAllWechatMap() :", err)
 	}
+
+	for i := 0; i < len(maps); i++ {
+		maps[i].NPCs = GetMapNPC(maps[i].Number)
+	}
+
 	return &maps
 }
 

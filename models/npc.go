@@ -86,3 +86,17 @@ func GetAllNPC() (npcList *[]NPC) {
 
 	return &npcs
 }
+
+//获取所有NPC信息，以map[int]*models.NPC结构返回
+func GetAllNPCWithMap() (allNPC map[int]*NPC) {
+	//这个指针取值方式可能会有效率上的一点点缺失，但没到好的解决方法，除非再写个函数。
+	temps := *GetAllNPC()
+
+	allNPC = make(map[int]*NPC)
+
+	for i := 0; i < len(temps); i++ {
+		allNPC[temps[i].Number] = &temps[i]
+	}
+
+	return allNPC
+}

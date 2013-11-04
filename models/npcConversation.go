@@ -4,6 +4,11 @@ import (
 	"github.com/astaxie/beego"
 )
 
+/*
+备注：这个NPCConversation设计以后可能会带来隐患，因为大部分都是用编号（NUMBER）的方式来辨识
+	 而这个用了NPCId。以后需要注意是否会有异常的情况。
+*/
+
 //NPC对话
 type NPCConversation struct {
 	Id           int    `orm:"column(id);pk"`

@@ -4,6 +4,7 @@ import (
 	"Legend/models"
 	"fmt"
 	//"github.com/astaxie/beego"
+	"strconv"
 	"strings"
 )
 
@@ -205,8 +206,9 @@ func ShowMapInfo(number int) (s string) {
 	//beego.Trace("ShowMapInfo")
 
 	if map_MapData[number].NPCs != nil {
-		for _, v := range *map_MapData[number].NPCs {
-			s += "\n[1]" + map_NPCs[v.NPCNumber].GetName() + ":" + map_NPCs[v.NPCNumber].GetDescSimple()
+		for k, v := range *map_MapData[number].NPCs {
+			//beego.Trace(k)
+			s += "\n[" + strconv.Itoa(k+1) + "]" + map_NPCs[v.NPCNumber].GetName() + ":" + map_NPCs[v.NPCNumber].GetDescSimple()
 		}
 	}
 

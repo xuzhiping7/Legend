@@ -54,7 +54,7 @@ func (this *NPC) GetDescDetail() (s string) {
 
 func (this *NPC) Talk() (s string) {
 	index := rand.Intn(len(*this.Conversations))
-	return (*this.Conversations)[index].Conversation
+	return this.Name + " : " + (*this.Conversations)[index].Conversation
 }
 
 func (this *NPC) ShowNPC() (s string) {
@@ -78,10 +78,15 @@ func GetNPC(id int) (npc *NPC) {
 
 func GetAllNPC() (npcList *[]NPC) {
 	npcs := []NPC{}
-	_, err := OrmHandle.QueryTable("wechat_npc").All(&npcs)
+	_, err := OrmHandle.QueryTable("wechat_npc").OrderBy("number").All(&npcs)
 
 	if err != nil {
 		beego.Error("npc.go GetAllNPC error:", err)
+	}
+
+	//获取NPC的所有对话信息
+	for i := 0; i < len(npcs); i++ {
+		npcs[i].Conversations = GetNPCConversations(npcs[i].Id)
 	}
 
 	return &npcs

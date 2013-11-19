@@ -10,25 +10,26 @@ type Player struct {
 	/*
 		数据表中储存的数据
 	*/
-	Id              int    `orm:"column(id);pk"`
-	OpenId          string `orm:"column(openid)"`
-	NickName        string `orm:"column(nickname)"`
-	UserName        string `orm:"column(username)"`
-	Sex             int    `orm:"column(sex)"`
-	Level           int    `orm:"column(level)"`
-	Exp             int    `orm:"column(exp)"`
-	Coin            int    `orm:"column(coin)"`
-	Mobility        int    `orm:"column(mobility)"`
-	Reputation      int    `orm:"column(reputation)"`
-	Attack          int    `orm:"column(attack)"`
-	Defense         int    `orm:"column(defense)"`
-	Stamina         int    `orm:"column(stamina)"`
-	Agility         int    `orm:"column(agility)"`
-	Wisdom          int    `orm:"column(wisdom)"`
-	NoDistribution  int    `orm:"column(no_distribution)"`
-	Location        int    `orm:"column(location)"`
-	LocationCommand int    `orm:"column(location_command)"`
-	Flag            int    `orm:"column(flag)"`
+	Id               int    `orm:"column(id);pk"`
+	OpenId           string `orm:"column(openid)"`
+	NickName         string `orm:"column(nickname)"`
+	UserName         string `orm:"column(username)"`
+	Sex              int    `orm:"column(sex)"`
+	Level            int    `orm:"column(level)"`
+	Exp              int    `orm:"column(exp)"`
+	Coin             int    `orm:"column(coin)"`
+	Mobility         int    `orm:"column(mobility)"`
+	Reputation       int    `orm:"column(reputation)"`
+	Attack           int    `orm:"column(attack)"`
+	Defense          int    `orm:"column(defense)"`
+	Stamina          int    `orm:"column(stamina)"`
+	Agility          int    `orm:"column(agility)"`
+	Wisdom           int    `orm:"column(wisdom)"`
+	NoDistribution   int    `orm:"column(no_distribution)"`
+	Location         int    `orm:"column(location)"`
+	LocationCommand  int    `orm:"column(location_command)"`
+	LocationCommand2 int    `orm:"column(location_command2)"`
+	Flag             int    `orm:"column(flag)"`
 
 	/*
 		扩展的动态数据
@@ -226,6 +227,28 @@ func (player *Player) UpdateLocationCommand(i int) bool {
 	if err != nil {
 		beego.Error("player.go UpdateLocationCommand():", err)
 		return false
+	}
+	return true
+}
+
+//更新玩家位置当前的命令信息（子命令）
+func (player *Player) UpdateLocationCommand2(i int) bool {
+	player.LocationCommand2 = i
+	_, err := OrmHandle.Update(player, "LocationCommand2")
+	if err != nil {
+		beego.Error("player.go UpdateLocationCommand2():", err)
+		return false
+	}
+	return true
+}
+
+//重置玩家位置当前的命令信息
+func (player *Player) ResetLocationCommand() bool {
+	if player.LocationCommand != 0 {
+		player.UpdateLocationCommand(0)
+	}
+	if player.LocationCommand2 != 0 {
+		player.UpdateLocationCommand2(0)
 	}
 	return true
 }

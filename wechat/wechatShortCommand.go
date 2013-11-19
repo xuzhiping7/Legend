@@ -47,6 +47,9 @@ func ExecuteNumberCommand(player *models.Player, command int) (s string) {
 		if command == 1 {
 			//NPC对话命令
 			s = map_NPCs[npcNumber].Talk()
+			//记录短命令的子命令操作（以后的扩展命令）
+			player.UpdateLocationCommand2(command)
+
 		} else if command == 0 {
 			//返回命令
 			//取消NPC短命令状态

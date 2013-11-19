@@ -92,6 +92,7 @@ func WechatResponseHandle(openid string, content string) (s_ReturnContent string
 
 	s_ReturnContent, ok3 := playerCommandController(player, content)
 	if ok3 {
+		player.ResetLocationCommand()
 		return s_ReturnContent
 	}
 

@@ -1,39 +1,69 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+"http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+
 <plist version="1.0">
 <dict>
+   <!-- array of downloads. -->
    <key>items</key>
    <array>
        <dict>
+           <!-- an array of assets to download -->
            <key>assets</key>
            <array>
+               <!-- software-package: the ipa to install. -->
                <dict>
+                   <!-- required.  the asset kind. -->
                    <key>kind</key>
                    <string>software-package</string>
+                   <!-- required.  the URL of the file to download. -->
                    <key>url</key>
-                   <string>http://www.shouyouqianxian.com/Storage/sidamingbu.ipa</string>
+                   <string>http://120.25.56.219/platform/xuzhiping_test/sidamingbu.ipa</string>
                </dict>
+
+               <!-- display-image: the icon to display during download. -->
                <dict>
                    <key>kind</key>
                    <string>display-image</string>
+                   <!-- optional. icon needs shine effect applied. -->
                    <key>needs-shine</key>
                    <true/>
                    <key>url</key>
-                   <string>http://120.25.56.219/platform/xuzhiping_test/logo.png</string>
+                   <string>http://120.25.56.219/platform/xuzhiping_test/5757.png</string>
                </dict>
-           </array>
-           <key>metadata</key>
+
+               <!-- full-size-image: the large 512×512 icon used by iTunes. -->
+               <dict>
+                   <key>kind</key>
+                   <string>full-size-image</string>
+
+                   <key>needs-shine</key>
+                   <true/>
+                   <key>url</key>
+                   <string>http://120.25.56.219/platform/xuzhiping_test/512512.jpg</string>
+               </dict>
+
+           </array><key>metadata</key>
+
            <dict>
+               <!-- required -->
                <key>bundle-identifier</key>
                <string>com.bahamute.sidamingbu</string>
+               <!-- optional (software only) -->
                <key>bundle-version</key>
                <string>1.0.0</string>
+
+               <!-- required.  the download kind. -->
                <key>kind</key>
                <string>software</string>
+
+               <!-- optional. displayed during download; -->
+               <!-- typically company name -->
                <key>subtitle</key>
-               <string>App Subtitle</string>
+               <string>测试</string>
+
+               <!-- required.  the title to display during the download. -->
                <key>title</key>
-               <string>App Title</string>
+               <string>四大名捕测试</string>
            </dict>
        </dict>
    </array>
